@@ -1,4 +1,4 @@
-package fr.bforbeer.utils
+package fr.test.echos.di
 
 import android.content.Context
 import android.content.res.Resources
