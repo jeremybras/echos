@@ -6,7 +6,7 @@ data class DomainUiData(
 )
 
 sealed interface ArticlesUiState {
-    data object NoData : ArticlesUiState
+
     data object Loading : ArticlesUiState
 
     data class Error(

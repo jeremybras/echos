@@ -20,14 +20,13 @@ import androidx.compose.ui.unit.dp
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 internal fun Search(
+    modifier: Modifier,
     query: String,
     onQuery: (String) -> Unit,
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
     OutlinedTextField(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp),
+        modifier = modifier,
         value = query,
         onValueChange = { onQuery(it) },
         placeholder = {
