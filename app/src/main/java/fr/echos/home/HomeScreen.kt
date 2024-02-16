@@ -35,7 +35,7 @@ import fr.echos.articles.presentation.ArticlesViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
-    onArticleSelected: (String) -> Unit,
+    onArticleSelected: (String, String) -> Unit,
 ) {
 
     val viewModel: ArticlesViewModel = hiltViewModel()

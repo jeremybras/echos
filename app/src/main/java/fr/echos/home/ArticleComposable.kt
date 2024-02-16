@@ -22,14 +22,17 @@ import fr.echos.articles.presentation.ArticleDisplayModel
 @Composable
 internal fun ArticleComposable(
     article: ArticleDisplayModel,
-    onArticleSelected: (String) -> Unit,
+    onArticleSelected: (String, String) -> Unit,
 ) {
     // TODO : Manage ripple zone, it's ugly
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .clickable {
-                onArticleSelected(article.url)
+                onArticleSelected(
+                    article.encodedUrl,
+                    article.title
+                )
             },
     ) {
         Image(

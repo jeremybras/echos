@@ -23,6 +23,6 @@ data class ArticleDisplayModel(
     val description: String,
     val imageUrl: String,
     val domain: String,
-    val url: String,
+    val encodedUrl: String,
     val dateAndAuthor: String,
 )

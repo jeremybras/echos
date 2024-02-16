@@ -4,9 +4,11 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.core.view.WindowCompat
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import dagger.hilt.android.AndroidEntryPoint
 import fr.echos.detail.ArticleScreen
 import fr.echos.home.HomeScreen
@@ -30,14 +32,30 @@ class MainActivity : ComponentActivity() {
                 ) {
                     composable("home") {
                         HomeScreen(
-                            onArticleSelected = { articleUrl ->
-                                // navController.navigate("articleDetail/$articleUrl")
+                            onArticleSelected = { articleUrl, articleTitle ->
+                                navController.navigate("articleDetail/$articleUrl/$articleTitle")
                             },
                         )
                     }
-                    composable("articleDetail") {
+                    composable(
+                        route = "articleDetail/{articleUrl}/{articleTitle}",
+                        arguments = listOf(
+                            navArgument("articleUrl") {
+                                type = NavType.StringType
+                            },
+                            navArgument("articleTitle") {
+                                type = NavType.StringType
+                            }
+                        )
+                    ) {
+                        val articleUrl = it.arguments?.getString("articleUrl") ?: ""
+                        val articleTitle = it.arguments?.getString("articleTitle") ?: ""
                         ArticleScreen(
-                            articleUrl = it.arguments?.getString("articleUrl") ?: "",
+                            title = articleTitle,
+                            articleUrl = articleUrl,
+                            onNavigationButton = {
+                                navController.popBackStack()
+                            }
                         )
                     }
                 }

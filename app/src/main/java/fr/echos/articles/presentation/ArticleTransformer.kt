@@ -4,6 +4,8 @@ import android.content.res.Resources
 import fr.echos.R
 import fr.echos.articles.domain.Article
 import java.net.URI
+import java.net.URLEncoder
+import java.nio.charset.StandardCharsets
 import javax.inject.Inject
 
 class ArticleTransformer @Inject constructor(
@@ -16,14 +18,18 @@ class ArticleTransformer @Inject constructor(
     }
 
     private fun transform(article: Article): ArticleDisplayModel {
+
         val uri = URI(article.url)
         val domain = uri.host
+
+        val encodedUrl = URLEncoder.encode(article.url, StandardCharsets.UTF_8.toString())
+
         return ArticleDisplayModel(
             title = article.title,
             description = article.description,
             imageUrl = article.imageUrl,
             domain = domain,
-            url = article.url,
+            encodedUrl = encodedUrl,
             dateAndAuthor = resources.getString(
                 R.string.date_author,
                 dateFormatter.format(article.publicationDate),
