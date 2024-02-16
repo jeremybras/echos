@@ -5,6 +5,8 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import fr.echos.articles.domain.ArticlesInteractor
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Named
@@ -43,14 +45,22 @@ class ArticlesViewModel @Inject constructor(
         private val domains = mutableListOf<String>()
     }
 
+
+    private val _query by lazy { MutableStateFlow("") }
+    internal val query: StateFlow<String> by lazy { _query }
+
     init {
         viewModelScope.launch(context = dispatcher) {
             interactor.loadArticles(
                 page = page,
                 perPage = PAGE_SIZE,
-                query = query,
+                query = query.value,
                 domains = domains,
             )
         }
+    }
+
+    fun onQueryChange(query: String) {
+        _query.value = query
     }
 }
