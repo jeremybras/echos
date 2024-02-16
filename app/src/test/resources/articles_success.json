@@ -1,0 +1,19 @@
+{
+  "status": "ok",
+  "totalResults": 2031,
+  "articles": [
+    {
+      "source": {
+        "id": "engadget",
+        "name": "Engadget"
+      },
+      "author": "Sarah Fielding",
+      "title": "NVIDIA becomes the third most valuable US company at Alphabet's expense",
+      "description": "NVIDIA is doing very well for itself. The chip maker has overtaken Alphabet, Google's parent company, to become the third most valuable company in the United States, Reuters reports. The news comes almost immediately after NVIDIA pushed past Amazon in the ran…",
+      "url": "https://www.engadget.com/nvidia-becomes-the-third-most-valuable-us-company-at-alphabets-expense-123503967.html",
+      "urlToImage": "https://s.yimg.com/ny/api/res/1.2/_G6EQiTAEfMwaYoTEQ2TyA--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD03OTk-/https://s.yimg.com/os/creatr-uploaded-images/2023-12/7de70ac0-ae59-11ee-b5ff-5d788b9b7667",
+      "publishedAt": "2024-02-15T12:35:03Z",
+      "content": "NVIDIA is doing very well for itself. The chip maker has overtaken Alphabet, Google's parent company, to become the third most valuable company in the United States, Reuters reports. The news comes a… [+1290 chars]"
+    }
+  ]
+}
