@@ -17,7 +17,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -33,10 +32,10 @@ fun HomeScreen(
     val viewModel: ArticlesViewModel = hiltViewModel()
     val query by viewModel.queryUiState.collectAsState()
     val domains by viewModel.domainsUiState.collectAsState()
+    val articlesUiState by viewModel.uiState.collectAsState()
 
     var shouldShowBottomSheet by remember { mutableStateOf(false) }
     val sheetState = rememberModalBottomSheetState()
-    val scope = rememberCoroutineScope()
 
     val bottomPadding = WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding()
 
