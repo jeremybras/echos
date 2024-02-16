@@ -1,4 +1,4 @@
-package fr.test.echos.ui.theme
+package fr.echos.ui.theme
 
 import android.app.Activity
 import android.os.Build

@@ -1,4 +1,4 @@
-package fr.test.echos.testutils
+package fr.echos.testutils
 
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer

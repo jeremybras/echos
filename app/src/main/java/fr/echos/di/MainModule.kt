@@ -1,4 +1,4 @@
-package fr.test.echos.di
+package fr.echos.di
 
 import android.content.Context
 import android.content.res.Resources

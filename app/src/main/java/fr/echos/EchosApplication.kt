@@ -1,4 +1,4 @@
-package fr.test.echos
+package fr.echos
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

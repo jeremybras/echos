@@ -1,4 +1,4 @@
-package fr.test.echos.testutils
+package fr.echos.testutils
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi

@@ -1,14 +1,14 @@
-package fr.test.echos.di
+package fr.echos.di
 
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import fr.test.echos.repository.EchosService
+import fr.echos.articles.repository.EchosService
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module
@@ -16,9 +16,9 @@ import javax.inject.Singleton
 class NetworkModule {
 
     companion object {
-        private const val BASE_URL = "https://newsapi.org/v2/everything"
+        private const val BASE_URL = "https://newsapi.org/v2/"
         private const val API_KEY_PARAMETER_NAME = "apiKey"
-        private const val API_KEY_PARAMETER_VALUE = "1b18650f51454f80a97facb29c252ce5"
+        private const val API_KEY_PARAMETER_VALUE = "240bc8c914ff4e9da08298c48435b25c"
     }
 
     @Provides
@@ -41,7 +41,7 @@ class NetworkModule {
             .Builder()
             .baseUrl(BASE_URL)
             .client(okHttpClient)
-            .addConverterFactory(MoshiConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
 
