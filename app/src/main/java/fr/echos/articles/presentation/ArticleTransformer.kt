@@ -1,10 +1,13 @@
 package fr.echos.articles.presentation
 
+import android.content.res.Resources
+import fr.echos.R
 import fr.echos.articles.domain.Article
 import java.net.URI
 import javax.inject.Inject
 
 class ArticleTransformer @Inject constructor(
+    private val resources: Resources,
     private val dateFormatter: DateFormatter,
 ) {
 
@@ -21,7 +24,11 @@ class ArticleTransformer @Inject constructor(
             imageUrl = article.imageUrl,
             domain = domain,
             url = article.url,
-            publicationDate = dateFormatter.format(article.publicationDate),
+            dateAndAuthor = resources.getString(
+                R.string.date_author,
+                dateFormatter.format(article.publicationDate),
+                article.author,
+            )
         )
     }
 }

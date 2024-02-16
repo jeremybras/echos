@@ -1,7 +1,9 @@
 package fr.echos.home
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -84,10 +86,12 @@ fun HomeScreen(
                 .fillMaxSize()
                 .padding(paddingValues = paddingValues),
         ) {
+
             Search(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(16.dp),
+                    .padding(horizontal = 16.dp)
+                    .padding(top = 16.dp),
                 query = query,
                 onQuery = viewModel::onQueryChange,
             )
@@ -122,6 +126,8 @@ fun HomeScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .weight(1f),
+                        verticalArrangement = Arrangement.spacedBy(16.dp),
+                        contentPadding = PaddingValues(vertical = 16.dp),
                     ) {
                         uiState.articles.forEach { article ->
                             item {

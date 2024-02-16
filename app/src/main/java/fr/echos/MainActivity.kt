@@ -31,7 +31,7 @@ class MainActivity : ComponentActivity() {
                     composable("home") {
                         HomeScreen(
                             onArticleSelected = { articleUrl ->
-                                navController.navigate("articleDetail/$articleUrl")
+                                // navController.navigate("articleDetail/$articleUrl")
                             },
                         )
                     }

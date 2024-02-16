@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Echos</string>
+    <string name="date_author">%s by %s</string>
 </resources>

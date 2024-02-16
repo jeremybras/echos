@@ -24,5 +24,5 @@ data class ArticleDisplayModel(
     val imageUrl: String,
     val domain: String,
     val url: String,
-    val publicationDate: String,
+    val dateAndAuthor: String,
 )
