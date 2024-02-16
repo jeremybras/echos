@@ -20,44 +20,63 @@ class ArticlesViewModel @Inject constructor(
     companion object {
 
         private val fullDomainList = listOf(
-            "bbc.co.uk",
-            "techcrunch.com",
-            "engadget.com",
-            "mashable.com",
-            "thenextweb.com",
-            "wired.com",
-            "arstechnica.com",
-            "techradar.com",
-            "theverge.com",
-            "recode.net",
-            "techcrunch.com",
-            "venturebeat.com",
-            "cnet.com",
-            "gizmodo.com",
-            "slashdot.org",
-            "lifehacker.com",
-            "gigaom.com",
+            DomainUiData("bbc.co.uk"),
+            DomainUiData("techcrunch.com"),
+            DomainUiData("engadget.com"),
+            DomainUiData("mashable.com"),
+            DomainUiData("thenextweb.com"),
+            DomainUiData("wired.com"),
+            DomainUiData("arstechnica.com"),
+            DomainUiData("techradar.com"),
+            DomainUiData("theverge.com"),
+            DomainUiData("recode.net"),
+            DomainUiData("venturebeat.com"),
+            DomainUiData("cnet.com"),
+            DomainUiData("gizmodo.com"),
+            DomainUiData("slashdot.org"),
+            DomainUiData("lifehacker.com"),
+            DomainUiData("gigaom.com"),
         )
 
         private const val PAGE_SIZE = 10
         private var page = 1
-        private var query = ""
-        private val domains = mutableListOf<String>()
     }
 
 
     private val _query by lazy { MutableStateFlow("") }
-    internal val query: StateFlow<String> by lazy { _query }
+    internal val queryUiState: StateFlow<String> by lazy { _query }
+
+    private val _domains by lazy { MutableStateFlow(fullDomainList) }
+    internal val domainsUiState: StateFlow<List<DomainUiData>> by lazy { _domains }
 
     init {
         viewModelScope.launch(context = dispatcher) {
             interactor.loadArticles(
                 page = page,
                 perPage = PAGE_SIZE,
-                query = query.value,
-                domains = domains,
+                query = _query.value,
+                domains = buildDomains(),
             )
         }
+    }
+
+    fun onDomainSelected(domain: DomainUiData) {
+        _domains.value = _domains.value.map {
+            if (it.name == domain.name) {
+                it.copy(isSelected = !it.isSelected)
+            } else {
+                it
+            }
+        }
+    }
+
+    private fun buildDomains(): List<String> {
+        return _domains.value
+            .filter {
+                it.isSelected
+            }.map {
+                it.name
+            }
     }
 
     fun onQueryChange(query: String) {
