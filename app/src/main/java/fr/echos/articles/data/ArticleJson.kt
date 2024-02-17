@@ -1,4 +1,4 @@
-package fr.echos.articles.repository
+package fr.echos.articles.data
 
 sealed interface ArticleResponse {
     data class Success(

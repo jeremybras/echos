@@ -1,4 +1,4 @@
-package fr.echos.articles.presentation
+package fr.echos.utils
 
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -9,5 +9,4 @@ class DateFormatter @Inject constructor() {
     fun format(date: LocalDateTime): String {
         return date.format(DateTimeFormatter.ofPattern("dd MMM yyyy"))
     }
-
 }

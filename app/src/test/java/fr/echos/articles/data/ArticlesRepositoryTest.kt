@@ -1,4 +1,4 @@
-package fr.echos.articles.repository
+package fr.echos.articles.data
 
 import fr.echos.articles.domain.Article
 import fr.echos.articles.domain.ArticleException
@@ -31,7 +31,7 @@ class ArticlesRepositoryTest {
                 query = "query",
                 domains = listOf("domain"),
             )
-        ).willReturn(listOf(article))
+        ).willReturn(listOf(article) to 20)
 
         // When
         val result = repository.getArticles(
@@ -42,7 +42,7 @@ class ArticlesRepositoryTest {
         )
 
         // Then
-        assertEquals(listOf(article), result)
+        assertEquals(listOf(article) to 20, result)
     }
 
     @Test

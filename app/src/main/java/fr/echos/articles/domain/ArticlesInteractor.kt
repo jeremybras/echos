@@ -1,6 +1,6 @@
 package fr.echos.articles.domain
 
-import fr.echos.articles.repository.ArticlesRepository
+import fr.echos.articles.data.ArticlesRepository
 import javax.inject.Inject
 
 class ArticlesInteractor @Inject constructor(

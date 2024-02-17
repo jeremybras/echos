@@ -1,4 +1,4 @@
-package fr.echos.articles.repository
+package fr.echos.articles.data
 
 import com.google.gson.Gson
 import okhttp3.ResponseBody

@@ -3,6 +3,7 @@ package fr.echos.articles.presentation
 import android.content.res.Resources
 import fr.echos.R
 import fr.echos.articles.domain.Article
+import fr.echos.utils.DateFormatter
 import java.net.URI
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets

@@ -1,4 +1,4 @@
-package fr.echos.articles.repository
+package fr.echos.articles.data
 
 import fr.echos.articles.domain.Article
 import fr.echos.articles.domain.ArticleException

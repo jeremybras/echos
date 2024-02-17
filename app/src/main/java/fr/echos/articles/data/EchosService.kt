@@ -1,4 +1,4 @@
-package fr.echos.articles.repository
+package fr.echos.articles.data
 
 import retrofit2.Call
 import retrofit2.http.GET

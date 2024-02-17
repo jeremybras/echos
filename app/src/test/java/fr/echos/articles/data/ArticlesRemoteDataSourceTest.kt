@@ -1,4 +1,4 @@
-package fr.echos.articles.repository
+package fr.echos.articles.data
 
 import fr.echos.articles.domain.Article
 import fr.echos.articles.domain.ArticleException
@@ -91,7 +91,7 @@ class ArticlesRemoteDataSourceTest {
         // Then
         then(articleResponseConverter).should().convert(expectedResponse)
         assertEquals(
-            listOf(article),
+            listOf(article) to 2031,
             result
         )
     }

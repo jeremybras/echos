@@ -1,4 +1,4 @@
-package fr.echos.articles.repository
+package fr.echos.articles.data
 
 import fr.echos.articles.domain.Article
 import fr.echos.articles.domain.ArticleException
@@ -33,7 +33,6 @@ class ArticlesRemoteDataSource @Inject constructor(
             query = query,
             domains = domains.joinToString(separator = DOMAIN_SEPARATOR),
         )
-        println("url = ${request.request().url()}")
         try {
             when (val response = handleRequest(request)) {
                 is ArticleResponse.Success -> {
