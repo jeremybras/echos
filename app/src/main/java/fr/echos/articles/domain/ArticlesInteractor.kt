@@ -13,7 +13,7 @@ class ArticlesInteractor @Inject constructor(
         domains: List<String>,
     ): ArticleResult {
         return try {
-            val articles = repository.getArticles(
+            val (articles, articlesNumber) = repository.getArticles(
                 page = page,
                 perPage = perPage,
                 query = query,
@@ -21,6 +21,7 @@ class ArticlesInteractor @Inject constructor(
             )
             ArticleResult.Success(
                 articles = articles,
+                articlesNumber = articlesNumber,
             )
         } catch (e: ArticleException) {
             ArticleResult.Error(

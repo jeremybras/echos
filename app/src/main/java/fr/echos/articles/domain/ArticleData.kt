@@ -4,7 +4,8 @@ import java.time.LocalDateTime
 
 sealed interface ArticleResult {
     data class Success(
-        val articles: List<Article>
+        val articles: List<Article>,
+        val articlesNumber: Int,
     ) : ArticleResult
     data class Error(
         val message: String?,
@@ -12,7 +13,7 @@ sealed interface ArticleResult {
 }
 
 data class Article(
-    val author: String,
+    val author: String?,
     val title: String,
     val description: String,
     val url: String,

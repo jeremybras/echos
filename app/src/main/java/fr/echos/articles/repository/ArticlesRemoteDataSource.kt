@@ -3,6 +3,7 @@ package fr.echos.articles.repository
 import fr.echos.articles.domain.Article
 import fr.echos.articles.domain.ArticleException
 import retrofit2.Call
+import java.net.SocketTimeoutException
 import javax.inject.Inject
 
 class ArticlesRemoteDataSource @Inject constructor(
@@ -21,21 +22,31 @@ class ArticlesRemoteDataSource @Inject constructor(
         perPage: Int,
         query: String?,
         domains: List<String>,
-    ): List<Article> {
+    ): Pair<List<Article>, Int> {
+
+        // For testing purposes
+        Thread.sleep(2000)
+
         val request = service.getArticles(
             page = page,
             pageSize = perPage,
             query = query,
             domains = domains.joinToString(separator = DOMAIN_SEPARATOR),
         )
-        when (val response = handleRequest(request)) {
-            is ArticleResponse.Success -> {
-                return articleResponseConverter.convert(response)
-            }
+        println("url = ${request.request().url()}")
+        try {
+            when (val response = handleRequest(request)) {
+                is ArticleResponse.Success -> {
+                    val articles = articleResponseConverter.convert(response)
+                    return articles to response.totalResults
+                }
 
-            is ArticleResponse.Error -> {
-                throw ArticleException(response.message)
+                is ArticleResponse.Error -> {
+                    throw ArticleException(response.message)
+                }
             }
+        } catch (e: SocketTimeoutException) {
+            throw throw ArticleException("Socket timeout")
         }
     }
 

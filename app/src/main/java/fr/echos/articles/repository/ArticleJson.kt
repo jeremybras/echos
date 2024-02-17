@@ -14,7 +14,7 @@ sealed interface ArticleResponse {
 
 data class ArticleJson(
     val source: ArticleSourceJson,
-    val author: String,
+    val author: String?,
     val title: String,
     val description: String,
     val url: String,

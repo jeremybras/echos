@@ -13,7 +13,7 @@ class ArticlesRepository @Inject constructor(
         perPage: Int,
         query: String?,
         domains: List<String>,
-    ): List<Article> {
+    ): Pair<List<Article>, Int> {
         return dataSource.loadRequest(
             page = page,
             perPage = perPage,

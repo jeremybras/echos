@@ -1,8 +1,10 @@
 package fr.echos.articles.presentation
 
+import android.content.res.Resources
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import fr.echos.R
 import fr.echos.articles.domain.ArticleResult
 import fr.echos.articles.domain.ArticlesInteractor
 import kotlinx.coroutines.CoroutineDispatcher
@@ -17,33 +19,14 @@ class ArticlesViewModel @Inject constructor(
     @Named("ioDispatcher") private val dispatcher: CoroutineDispatcher,
     private val interactor: ArticlesInteractor,
     private val articleTransformer: ArticleTransformer,
+    private val resources: Resources,
 ) : ViewModel() {
 
     companion object {
-
-        private val fullDomainList = listOf(
-            DomainUiData("bbc.co.uk"),
-            DomainUiData("techcrunch.com"),
-            DomainUiData("engadget.com"),
-            DomainUiData("mashable.com"),
-            DomainUiData("thenextweb.com"),
-            DomainUiData("wired.com"),
-            DomainUiData("arstechnica.com"),
-            DomainUiData("techradar.com"),
-            DomainUiData("theverge.com"),
-            DomainUiData("recode.net"),
-            DomainUiData("venturebeat.com"),
-            DomainUiData("cnet.com"),
-            DomainUiData("gizmodo.com"),
-            DomainUiData("slashdot.org"),
-            DomainUiData("lifehacker.com"),
-            DomainUiData("gigaom.com"),
-        )
-
-        private const val PAGE_SIZE = 10
+        private const val PAGE_SIZE = 20
         private var page = 1
+        private val articles = mutableListOf<ArticleDisplayModel>()
     }
-
 
     private val _query = MutableStateFlow("")
     internal val queryUiState: StateFlow<String> = _query
@@ -51,40 +34,20 @@ class ArticlesViewModel @Inject constructor(
     private val _domains = MutableStateFlow(fullDomainList)
     internal val domainsUiState: StateFlow<List<DomainUiData>> = _domains
 
+    private val _totalNumberOfResults = MutableStateFlow("")
+    internal val totalNumberOfResults: StateFlow<String> = _totalNumberOfResults
+
     private val _uiState = MutableStateFlow<ArticlesUiState>(ArticlesUiState.Loading)
     internal val uiState: StateFlow<ArticlesUiState> = _uiState
 
+    private val _isLoadingNextPage = MutableStateFlow(false)
+    internal val isLoadingNextPage: StateFlow<Boolean> = _isLoadingNextPage
+
+    private val _hasNoMorePages = MutableStateFlow(false)
+    internal val hasNoMorePages: StateFlow<Boolean> = _hasNoMorePages
+
     init {
-        viewModelScope.launch(context = dispatcher) {
-            loadArticles()
-        }
-    }
-
-    private fun loadArticles() {
-
-        _uiState.value = ArticlesUiState.Loading
-
-        val result = interactor.loadArticles(
-            page = page,
-            perPage = PAGE_SIZE,
-            query = _query.value.takeIf { it.isNotBlank() },
-            domains = buildDomains(),
-        )
-        _uiState.value = when (result) {
-            is ArticleResult.Error -> ArticlesUiState.Error(
-                message = result.message ?: "An error occurred",
-            )
-
-            is ArticleResult.Success -> {
-                val articles = articleTransformer.transform(result.articles)
-                articles.forEach { article ->
-                    println(article)
-                }
-                ArticlesUiState.Success(
-                    articles = articles,
-                )
-            }
-        }
+        loadArticles()
     }
 
     fun onDomainSelected(domain: DomainUiData) {
@@ -95,18 +58,72 @@ class ArticlesViewModel @Inject constructor(
                 it
             }
         }
-    }
-
-    private fun buildDomains(): List<String> {
-        return _domains.value
-            .filter {
-                it.isSelected
-            }.map {
-                it.name
-            }
+        reset()
+        loadArticles()
     }
 
     fun onQueryChange(query: String) {
         _query.value = query
+        reset()
+        loadArticles()
+    }
+
+    fun loadMore() {
+        if (_isLoadingNextPage.value || _hasNoMorePages.value) return
+        _isLoadingNextPage.value = true
+        page++
+        loadArticles()
+    }
+
+    fun retry() {
+        _uiState.value = ArticlesUiState.Loading
+        loadArticles()
+    }
+
+    private fun loadArticles() {
+        viewModelScope.launch(context = dispatcher) {
+            val result = interactor.loadArticles(
+                page = page,
+                perPage = PAGE_SIZE,
+                query = _query.value.takeIf { it.isNotBlank() },
+                domains = buildDomains(),
+            )
+            _uiState.value = when (result) {
+                is ArticleResult.Error -> ArticlesUiState.Error(
+                    message = result.message ?: "An error occurred",
+                )
+
+                is ArticleResult.Success -> {
+
+                    _hasNoMorePages.value = result.articlesNumber <= page * PAGE_SIZE
+
+                    _totalNumberOfResults.value = resources.getQuantityString(
+                        R.plurals.total_number_of_results,
+                        result.articlesNumber,
+                        result.articlesNumber,
+                    )
+
+                    val transformedArticles = articleTransformer.transform(result.articles)
+                    articles.addAll(transformedArticles)
+
+                    ArticlesUiState.Success(
+                        articles = articles,
+                    )
+                }
+            }
+
+            _isLoadingNextPage.value = false
+        }
+    }
+
+    private fun reset() {
+        page = 1
+        articles.clear()
+    }
+
+    private fun buildDomains(): List<String> {
+        return _domains.value
+            .filter { it.isSelected }
+            .map { it.name }
     }
 }

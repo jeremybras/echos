@@ -18,7 +18,8 @@ class NetworkModule {
     companion object {
         private const val BASE_URL = "https://newsapi.org/v2/"
         private const val API_KEY_PARAMETER_NAME = "apiKey"
-        private const val API_KEY_PARAMETER_VALUE = "240bc8c914ff4e9da08298c48435b25c"
+        private const val API_KEY_PARAMETER_VALUE = "1b18650f51454f80a97facb29c252ce5"
+        // private const val API_KEY_PARAMETER_VALUE = "240bc8c914ff4e9da08298c48435b25c"
     }
 
     @Provides
