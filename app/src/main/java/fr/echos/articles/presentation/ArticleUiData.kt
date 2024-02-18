@@ -17,7 +17,7 @@ data class ArticleDisplayModel(
     val title: String,
     val description: String,
     val imageUrl: String,
-    val domain: DomainUiData,
+    val domain: DomainDisplayModel,
     val encodedUrl: String,
     val dateAndAuthor: String,
 )

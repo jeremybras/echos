@@ -1,8 +1,12 @@
 <resources>
     <string name="app_name">Echos</string>
+    <string name="domains_action">Domains</string>
+    <string name="search_placeholder">Search</string>
     <string name="date_author">%s by %s</string>
     <plurals name="total_number_of_results">
         <item quantity="one">%d result</item>
         <item quantity="other">%d results</item>
     </plurals>
+    <string name="retry_button">Retry</string>
+    <string name="generic_error_message">An error occurred</string>
 </resources>

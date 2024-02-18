@@ -26,15 +26,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import fr.echos.articles.presentation.DomainUiData
+import fr.echos.articles.presentation.DomainDisplayModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun DomainBottomSheet(
     sheetState: SheetState,
     onDismissRequest: () -> Unit,
-    domains: List<DomainUiData>,
-    onDomainSelected: (DomainUiData) -> Unit,
+    domains: List<DomainDisplayModel>,
+    onDomainSelected: (DomainDisplayModel) -> Unit,
     bottomPadding: Dp,
 ) {
     ModalBottomSheet(

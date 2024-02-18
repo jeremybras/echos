@@ -27,7 +27,7 @@ class ArticleTransformer @Inject constructor(
         val uri = URI(article.url)
         val domain = fullDomainList
             .firstOrNull { it.name == uri.host }
-            ?: DomainUiData(
+            ?: DomainDisplayModel(
                 name = uri.host,
                 displayMode = DEFAULT_DISPLAY_MODE,
             )

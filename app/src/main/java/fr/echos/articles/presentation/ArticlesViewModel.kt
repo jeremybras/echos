@@ -32,7 +32,7 @@ class ArticlesViewModel @Inject constructor(
     internal val queryUiState: StateFlow<String> = _query
 
     private val _domains = MutableStateFlow(fullDomainList)
-    internal val domainsUiState: StateFlow<List<DomainUiData>> = _domains
+    internal val domainsUiState: StateFlow<List<DomainDisplayModel>> = _domains
 
     private val _totalNumberOfResults = MutableStateFlow("")
     internal val totalNumberOfResults: StateFlow<String> = _totalNumberOfResults
@@ -50,13 +50,16 @@ class ArticlesViewModel @Inject constructor(
         loadArticles()
     }
 
-    fun onDomainSelected(domain: DomainUiData) {
+    fun onDomainSelected(domain: DomainDisplayModel) {
         _domains.value = _domains.value.map {
             if (it.name == domain.name) {
                 it.copy(isSelected = !it.isSelected)
             } else {
                 it
             }
+        }
+        if (_uiState.value is ArticlesUiState.Error) {
+            _uiState.value = ArticlesUiState.Loading
         }
         reset()
         loadArticles()
@@ -90,7 +93,7 @@ class ArticlesViewModel @Inject constructor(
             )
             _uiState.value = when (result) {
                 is ArticleResult.Error -> ArticlesUiState.Error(
-                    message = result.message ?: "An error occurred",
+                    message = result.message ?: resources.getString(R.string.generic_error_message),
                 )
 
                 is ArticleResult.Success -> {

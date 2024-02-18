@@ -1,6 +1,6 @@
 package fr.echos.articles.presentation
 
-data class DomainUiData(
+data class DomainDisplayModel(
     val name: String,
     val isSelected: Boolean = false,
     val displayMode: DomainDisplayMode = DomainDisplayMode.VERTICAL,
@@ -12,60 +12,60 @@ enum class DomainDisplayMode {
 }
 
 internal val fullDomainList = listOf(
-    DomainUiData(
+    DomainDisplayModel(
         name = "bbc.co.uk",
         isSelected = true,
     ),
-    DomainUiData(
+    DomainDisplayModel(
         name = "techcrunch.com",
         isSelected = true,
         displayMode = DomainDisplayMode.HORIZONTAL,
     ),
-    DomainUiData(
+    DomainDisplayModel(
         name = "engadget.com",
         displayMode = DomainDisplayMode.HORIZONTAL,
     ),
-    DomainUiData(
+    DomainDisplayModel(
         name = "mashable.com",
     ),
-    DomainUiData(
+    DomainDisplayModel(
         name = "thenextweb.com",
     ),
-    DomainUiData(
+    DomainDisplayModel(
         name = "wired.com",
     ),
-    DomainUiData(
+    DomainDisplayModel(
         name = "arstechnica.com",
         displayMode = DomainDisplayMode.HORIZONTAL,
     ),
-    DomainUiData(
+    DomainDisplayModel(
         name = "techradar.com",
     ),
-    DomainUiData(
+    DomainDisplayModel(
         name = "theverge.com",
     ),
-    DomainUiData(
+    DomainDisplayModel(
         name = "recode.net",
     ),
-    DomainUiData(
+    DomainDisplayModel(
         name = "venturebeat.com",
         displayMode = DomainDisplayMode.HORIZONTAL,
     ),
-    DomainUiData(
+    DomainDisplayModel(
         name = "cnet.com",
         displayMode = DomainDisplayMode.HORIZONTAL,
     ),
-    DomainUiData(
+    DomainDisplayModel(
         name = "gizmodo.com",
         displayMode = DomainDisplayMode.HORIZONTAL,
     ),
-    DomainUiData(
+    DomainDisplayModel(
         name = "slashdot.org",
     ),
-    DomainUiData(
+    DomainDisplayModel(
         name = "lifehacker.com",
     ),
-    DomainUiData(
+    DomainDisplayModel(
         name = "gigaom.com",
     ),
 )

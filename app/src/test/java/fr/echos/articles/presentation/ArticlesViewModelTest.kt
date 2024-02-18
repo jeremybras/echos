@@ -232,7 +232,7 @@ class ArticlesViewModelTest : BaseCoroutinesTest() {
         // Init call
         scheduler.advanceUntilIdle()
         viewModel.onDomainSelected(
-            domain = DomainUiData(
+            domain = DomainDisplayModel(
                 name = "bbc.co.uk",
                 displayMode = DomainDisplayMode.HORIZONTAL,
                 isSelected = false,

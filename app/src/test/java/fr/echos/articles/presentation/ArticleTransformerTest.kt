@@ -57,7 +57,7 @@ class ArticleTransformerTest {
                     title = "title",
                     description = "description",
                     imageUrl = "imageUrl",
-                    domain = DomainUiData(
+                    domain = DomainDisplayModel(
                         name = "techcrunch.com",
                         displayMode = DomainDisplayMode.HORIZONTAL,
                         isSelected = true,
@@ -95,7 +95,7 @@ class ArticleTransformerTest {
                     title = "title",
                     description = "description",
                     imageUrl = "imageUrl",
-                    domain = DomainUiData(
+                    domain = DomainDisplayModel(
                         name = "google.com",
                         displayMode = DomainDisplayMode.VERTICAL
                     ),

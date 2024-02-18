@@ -15,10 +15,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import fr.echos.R
+import fr.echos.ui.DarkOrLightPreview
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
@@ -39,7 +42,7 @@ internal fun Search(
             onValueChange = { onQuery(it) },
             placeholder = {
                 Text(
-                    text = "Search",
+                    text = stringResource(id = R.string.search_placeholder),
                 )
             },
             maxLines = 1,
@@ -67,4 +70,15 @@ internal fun Search(
             fontSize = 12.sp,
         )
     }
+}
+
+@DarkOrLightPreview
+@Composable
+fun SearchPreview() {
+    Search(
+        modifier = Modifier,
+        resultNumber = "20 results",
+        query = "google",
+        onQuery = {},
+    )
 }

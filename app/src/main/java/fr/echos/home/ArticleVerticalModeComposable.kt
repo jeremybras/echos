@@ -19,6 +19,9 @@ import androidx.compose.ui.unit.sp
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import fr.echos.articles.presentation.ArticleDisplayModel
+import fr.echos.articles.presentation.DomainDisplayMode
+import fr.echos.articles.presentation.DomainDisplayModel
+import fr.echos.ui.DarkOrLightPreview
 
 @Composable
 fun ArticleVerticalModeComposable(
@@ -107,4 +110,24 @@ private fun Image(
             fontSize = 14.sp,
         )
     }
+}
+
+@DarkOrLightPreview
+@Composable
+private fun ArticleVerticalModeComposablePreview() {
+    val article = ArticleDisplayModel(
+        title = "The Trial Over Bitcoin’s True Creator Is in Session",
+        description = "Description",
+        dateAndAuthor = "16 Janv 2024 by Joel Khalili",
+        imageUrl = "https://www.example.com/image.jpg",
+        encodedUrl = "https://www.example.com",
+        domain = DomainDisplayModel(
+            name = "wired.com",
+            displayMode = DomainDisplayMode.HORIZONTAL,
+        )
+    )
+    ArticleVerticalModeComposable(
+        article = article,
+        onArticleSelected = { _, _ -> }
+    )
 }
