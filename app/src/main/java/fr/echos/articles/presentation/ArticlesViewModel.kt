@@ -24,9 +24,10 @@ class ArticlesViewModel @Inject constructor(
 
     companion object {
         private const val PAGE_SIZE = 20
-        private var page = 1
-        private val articles = mutableListOf<ArticleDisplayModel>()
     }
+
+    private var page = 1
+    private val articles = mutableListOf<ArticleDisplayModel>()
 
     private val _query = MutableStateFlow("")
     internal val queryUiState: StateFlow<String> = _query
